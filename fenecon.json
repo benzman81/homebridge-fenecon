@@ -1,0 +1,34 @@
+[
+          {
+            "address": "_sum/GridActivePower",
+            "type": "INTEGER",
+            "accessMode": "RO",
+            "text": "Grid exchange power. Negative values for sell-to-grid; positive for buy-from-grid",
+            "unit": "W",
+            "value": -20
+        },
+        {
+            "address": "_sum/EssSoc",
+            "type": "INTEGER",
+            "accessMode": "RO",
+            "text": "Range 0..100",
+            "unit": "%",
+            "value": 10
+        },
+        {
+            "address": "_sum/ProductionActivePower",
+            "type": "INTEGER",
+            "accessMode": "RO",
+            "text": "Total production; always positive",
+            "unit": "W",
+            "value": 11
+        },
+        {
+            "address": "_sum/ConsumptionActivePower",
+            "type": "INTEGER",
+            "accessMode": "RO",
+            "text": "",
+            "unit": "W",
+            "value": 12
+        }
+    ]
