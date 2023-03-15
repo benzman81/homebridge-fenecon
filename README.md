@@ -24,6 +24,4 @@ Example config.json:
 ```
 
 # TDB
-- Implement initial version
-- interval poll and update
 - Config Schema for Config UI

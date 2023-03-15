@@ -1,9 +1,11 @@
 const Constants = require('../Constants');
 const Util = require('../Util');
 
-var FeneconAccessory = require('./accessories/FeneconAccessory');
+const FeneconAccessory = require('./accessories/FeneconAccessory');
+const FeneconSurplusPowerSensorAccessory = require('./accessories/FeneconSurplusPowerSensorAccessory');
+const FeneconBatteryFullSensorAccessory = require('./accessories/FeneconBatteryFullSensorAccessory');
 
-var Service, Characteristic, FakeGatoHistoryService;
+let Service, Characteristic, FakeGatoHistoryService;
 
 function FeneconPlatform(log, config, homebridge) {
   Service = homebridge.hap.Service;
@@ -48,6 +50,9 @@ FeneconPlatform.prototype.accessories = function(callback) {
   this.accessories.push(new FeneconAccessory(Service, Characteristic, FakeGatoHistoryService, this, "Production", "_sum/ProductionActivePower"));
   this.accessories.push(new FeneconAccessory(Service, Characteristic, FakeGatoHistoryService, this, "Buy", "_sum/GridActivePower"));
   this.accessories.push(new FeneconAccessory(Service, Characteristic, FakeGatoHistoryService, this, "Sell", "_sum/GridActivePower"));
+
+  this.accessories.push(new FeneconSurplusPowerSensorAccessory(Service, Characteristic, this));
+  this.accessories.push(new FeneconBatteryFullSensorAccessory(Service, Characteristic, this));
 
   callback(this.accessories);
 };

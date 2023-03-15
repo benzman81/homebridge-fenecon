@@ -24,7 +24,7 @@ function FeneconAccessory(ServiceParam, CharacteristicParam, FakeGatoHistoryServ
   informationService.setCharacteristic(Characteristic.Model, "FeneconAccessory-" + this.name);
   this.services.push(informationService);
 
-  var EvePowerConsumption = function() {
+  const EvePowerConsumption = function() {
       Characteristic.call(this, 'Consumption', 'E863F10D-079E-48FF-8F27-9C2605A29F52');
       this.setProps({
           format: Characteristic.Formats.UINT16,
@@ -38,7 +38,7 @@ function FeneconAccessory(ServiceParam, CharacteristicParam, FakeGatoHistoryServ
   };
   inherits(EvePowerConsumption, Characteristic);
 
-  var EveTotalPowerConsumption = function() {
+  const EveTotalPowerConsumption = function() {
       Characteristic.call(this, 'Total Consumption', 'E863F10C-079E-48FF-8F27-9C2605A29F52');
       this.setProps({
           format: Characteristic.Formats.FLOAT, // Deviation from Eve Energy observed type
@@ -55,14 +55,14 @@ function FeneconAccessory(ServiceParam, CharacteristicParam, FakeGatoHistoryServ
   const loggingService = new FakeGatoHistoryService("energy", this, { storage: 'fs' });
   this.services.push(loggingService);
 
-  var PowerMeterService = function(displayName, subtype) {
+  const PowerMeterService = function(displayName, subtype) {
       Service.call(this, displayName, '00000001-0000-1777-8000-775D67EC4377', subtype);
       this.addCharacteristic(EvePowerConsumption);
       this.addOptionalCharacteristic(EveTotalPowerConsumption);
   };
   inherits(PowerMeterService, Service);
 
-  var powerMeterService = new PowerMeterService(this.name);
+  const powerMeterService = new PowerMeterService(this.name);
   this.EvePowerConsumptionCharacteristic = powerMeterService.getCharacteristic(EvePowerConsumption);
   this.EvePowerConsumptionCharacteristic.on('get', this.getPowerConsumption.bind(this));
   powerMeterService.addCharacteristic(EveTotalPowerConsumption).on('get', this.getTotalPowerConsumption.bind(this));
