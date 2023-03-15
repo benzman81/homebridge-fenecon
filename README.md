@@ -1,7 +1,7 @@
 # homebridge-fenecon
 A plugin to get data from fenecon home and probably openems for Homebridge: [Homebridge](https://github.com/nfarina/homebridge).
 
-Currently supports: TBD
+Currently supports: Fenecon Home
 
 # Installation
 1. Install homebridge using: `npm install -g homebridge`

@@ -62,8 +62,9 @@ function FeneconAccessory(ServiceParam, CharacteristicParam, FakeGatoHistoryServ
   };
   inherits(PowerMeterService, Service);
 
-  const powerMeterService = new PowerMeterService(this.name);
-  powerMeterService.getCharacteristic(EvePowerConsumption).on('get', this.getPowerConsumption.bind(this));
+  var powerMeterService = new PowerMeterService(this.name);
+  this.EvePowerConsumptionCharacteristic = powerMeterService.getCharacteristic(EvePowerConsumption);
+  this.EvePowerConsumptionCharacteristic.on('get', this.getPowerConsumption.bind(this));
   powerMeterService.addCharacteristic(EveTotalPowerConsumption).on('get', this.getTotalPowerConsumption.bind(this));
   this.services.push(powerMeterService);
 }
@@ -73,6 +74,11 @@ FeneconAccessory.prototype.setCurrentData = function(currentData) {
     this.currentData = [];
   }
   this.currentData = currentData;
+  this.getPowerConsumption(function(err,powerConsumption) {
+    if(!err && this.EvePowerConsumptionCharacteristic) {
+      this.EvePowerConsumptionCharacteristic.updateValue(powerConsumption);
+    }
+  }.bind(this));
 }
 
 FeneconAccessory.prototype.getFromLoadedData = function() {

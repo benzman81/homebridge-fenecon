@@ -20,13 +20,12 @@ function FeneconPlatform(log, config, homebridge) {
   this.currentData = [];
 
   this.loadData();
-  setInterval(this.loadData, this.pull_intervall_seconds * 1000);
+  setInterval(this.loadData.bind(this), this.pull_intervall_seconds * 1000);
 };
 
 FeneconPlatform.prototype.loadData = function() {
   const onSuccessCallback = function(json){
     this.currentData = json;
-    this.log( this.currentData);
     for (const accessory of this.accessories) {
       accessory.setCurrentData(this.currentData);
     }
@@ -38,7 +37,6 @@ FeneconPlatform.prototype.loadData = function() {
       accessory.setCurrentData(this.currentData);
     }
   };
-
   const baseURL = "http://x:user@"+this.server_name_or_ip+"/rest/channel/";
   Util.callHttpApi(this.log, baseURL+"_sum/.*", onSuccessCallback, onFailureCallback);
 }
