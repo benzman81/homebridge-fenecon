@@ -5,7 +5,7 @@
             "accessMode": "RO",
             "text": "Grid exchange power. Negative values for sell-to-grid; positive for buy-from-grid",
             "unit": "W",
-            "value": -20
+            "value": -1020
         },
         {
             "address": "_sum/EssSoc",
@@ -13,7 +13,7 @@
             "accessMode": "RO",
             "text": "Range 0..100",
             "unit": "%",
-            "value": 10
+            "value": 100
         },
         {
             "address": "_sum/ProductionActivePower",
@@ -30,5 +30,13 @@
             "text": "",
             "unit": "W",
             "value": 12
-        }
+        },
+        {
+          "address": "_sum/GridMode",
+          "type": "INTEGER",
+          "accessMode": "RO",
+          "text": "1:On-Grid, 2:Off-Grid",
+          "unit": "",
+          "value": 1
+      }
     ]

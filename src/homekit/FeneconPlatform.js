@@ -4,6 +4,7 @@ const Util = require('../Util');
 const FeneconAccessory = require('./accessories/FeneconAccessory');
 const FeneconSurplusPowerSensorAccessory = require('./accessories/FeneconSurplusPowerSensorAccessory');
 const FeneconBatteryFullSensorAccessory = require('./accessories/FeneconBatteryFullSensorAccessory');
+const FeneconOnOffGridSensorAccessory = require('./accessories/FeneconOnOffGridSensorAccessory');
 
 let Service, Characteristic, FakeGatoHistoryService;
 
@@ -13,10 +14,11 @@ function FeneconPlatform(log, config, homebridge) {
   FakeGatoHistoryService = require('fakegato-history')(homebridge);
 
   this.log = log;
+  this.config = config;
   this.name = config["name"] || "Fenecon";
   this.server_name_or_ip = config["server_name_or_ip"];
   this.pull_intervall_seconds = config["pull_intervall_seconds"];
-  if (this.pull_intervall_seconds == null || this.pull_intervall_seconds == "" || this.pull_intervall_seconds < 15) {
+  if (this.pull_intervall_seconds === undefined || this.pull_intervall_seconds === null || this.pull_intervall_seconds === "" || this.pull_intervall_seconds < 15) {
     this.pull_intervall_seconds = Constants.DEFAULT_PULL_INTERVALL_SECONDS;
   }
   this.currentData = [];
@@ -53,6 +55,7 @@ FeneconPlatform.prototype.accessories = function(callback) {
 
   this.accessories.push(new FeneconSurplusPowerSensorAccessory(Service, Characteristic, this));
   this.accessories.push(new FeneconBatteryFullSensorAccessory(Service, Characteristic, this));
+  this.accessories.push(new FeneconOnOffGridSensorAccessory(Service, Characteristic, this));
 
   callback(this.accessories);
 };
